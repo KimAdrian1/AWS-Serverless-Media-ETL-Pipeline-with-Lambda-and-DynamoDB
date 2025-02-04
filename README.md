@@ -69,7 +69,7 @@ In this next section, I'll be explaining how the function code works.
 
 - The dependencies for: aws-sdk, jszip and vm are imported. Jszip is used to unzip the [lambda_test file](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/lambda_test.zip) that will be received in the source bucket. The vm (Virtual Machine) module in Node.js is used to run JavaScript code within a separate, sandboxed execution context. This will be used later on to get the contents of the `test.js` file after unzipping [lambda_test](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/lambda_test.zip).  
 - The `const dynamodb = new AWS.DynamoDB.DocumentClient()` line initializes a DynamoDB Document Client, which is used to interact with AWS DynamoDB for reading and writing human-readable JSON objects in DynamoDB.  
-- The `const s3 = new AWS.S3` line creates an s3 client instance, this enables the Lambda function code to perform operations like uploading, downloading, deleting, and listing objects in S3.
+- The `const s3 = new AWS.S3()` line creates an s3 client instance, this enables the Lambda function code to perform operations like uploading, downloading, deleting, and listing objects in S3.
 
 ![](./images/image28.png)  
 
@@ -91,7 +91,7 @@ In this next section, I'll be explaining how the function code works.
 Now let's head into the AWS console:
 
 - The source and destination s3 buckets.  
-- The [lambda_test zip file] will be uploaded to `lambda-dynamodb-source-bucket` and the resulting media files will be uploaded to directories created by the function in `lambda-dynamodb-destination-bucket`. 
+- The [lambda_test zip file](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/lambda_test.zip) will be uploaded to `lambda-dynamodb-source-bucket` and the resulting media files will be uploaded to directories created by the function in `lambda-dynamodb-destination-bucket`. 
 
 ![](./images/image46.png)  
 
@@ -174,7 +174,7 @@ Now let's head into the AWS console:
 
 ![](./images/image5.png)  
 
-- Once the zip file is uploaded to the bucket, we can check the cloudwatch log group created by the function to examine the progress of the ETL workflow. You can also view the metrics in the monitor tab of the lambda function but it takes about two minutes to update.  
+- Once the [zip file](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/lambda_test.zip) is uploaded to the bucket, we can check the cloudwatch log group created by the function to examine the progress of the ETL workflow. You can also view the metrics in the monitor tab of the lambda function but it takes about two minutes to update.  
 - From the logs, the code took 9 seconds to run and used 219 MB of memory. The items from the `test.js` file are also displayed.
 
 ![](./images/image48.png)    
@@ -191,7 +191,7 @@ Now let's head into the AWS console:
 ![](./images/image8.png)![](./images/image51.png)  
 
 - Viewing one of the image files in the `Poster_Images` directory for `The_Amazing_Spider-Man_2`.  
-- The same s3 URI should be stored in the DynamoDB table in the matching item.
+- The same s3 URI should be stored in the DynamoDB table with its matching item.
 
 ![](./images/image2.png)![](./images/image39.png)  
 
