@@ -41,7 +41,7 @@ The [code](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-
 ![](./images/image44.png)  
 
 - The contents of `test.js`.
-- In the AWS sdk for node js, the items to be uploaded to DynamoDB are written as objects. This is why I've written test.js is as a javascript file and not a JSON file, as parsing json code to javascript would have left both the key and value in quotation marks: `{“Name”: “Avengers Infinity War”}`. The DynamoDB client expects an item in the format: `{Name: “Avengers Infinity War”}`
+- In the AWS sdk for node js, the items to be uploaded to DynamoDB are written as objects. This is why I've written test.js as a javascript file and not a JSON file, as parsing json code to javascript would have left both the key and value in quotation marks: `{“Name”: “Avengers Infinity War”}`. The DynamoDB client expects an item in the format: `{Name: “Avengers Infinity War”}`
 
 ![](./images/image9.png)  
 
