@@ -22,9 +22,9 @@ DynamoDB is a fully managed NoSQL database service native to AWS. It has very hi
 - CloudWatch
 
 **The Project**  
-The code I wrote for the lambda function, the source zip file and  the lambda layer dependencies will be provided in this repository. I'll first be explaining the files and directories used.
+The [code](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/s3-dynamodb.mjs) I wrote for the lambda function, the [source zip file](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/lambda_test.zip) and  the lambda layer [dependencies](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/aws_sdk-and-jszip-dependencies.zip) will be provided in this repository. I'll first be explaining the files and directories used.
 
-- `s3-dynamodb.mjs` is the function code written in nodejs  
+- The `s3-dynamodb.mjs` file is the function code written in nodejs.  
 - The `Poster_Images` directory contains the movies’ images files to be uploaded to the destination bucket.  
 - The `Movie_Videos` directory contains the actual video files for the movies. These files will also be eventually uploaded to the destination bucket by the lambda function.  
 - If this scenario is a bit hard to follow, imagine the structure of Amazon Prime Video or Netflix; there exists multiple movie tiles to select from. The poster image for these movie tiles will exist in the `Poster_Images` folder. When you tap or click a tile, it sends you to another page where you can either start playing the movie or to watch the trailer first. These video files for the movies are stored in `Movies_Videos`.  
@@ -40,7 +40,8 @@ The code I wrote for the lambda function, the source zip file and  the lambda la
 
 ![](./images/image44.png)  
 
-- The contents of `test.js`. In the AWS sdk for node js, the items to be uploaded to DynamoDB are written as objects. This is why I've written test.js is as a javascript file and not a JSON file, as parsing json code to javascript would have left both the key and value in quotation marks: `{“Name”: “Avengers Infinity War”}`. The DynamoDB client expects an item in the format: `{Name: “Avengers Infinity War”}`
+- The contents of `test.js`.
+- In the AWS sdk for node js, the items to be uploaded to DynamoDB are written as objects. This is why I've written test.js is as a javascript file and not a JSON file, as parsing json code to javascript would have left both the key and value in quotation marks: `{“Name”: “Avengers Infinity War”}`. The DynamoDB client expects an item in the format: `{Name: “Avengers Infinity War”}`
 
 ![](./images/image9.png)  
 
@@ -56,17 +57,17 @@ The code I wrote for the lambda function, the source zip file and  the lambda la
 ![](./images/image15.png)    
 ![](./images/image35.png)  
 
-- To properly structure the dependencies for the lambda layer, we need to bundle the modules as well as `package.json` and `package-lock` in a folder called nodejs and then compress it to a zip file.
+- To properly structure the dependencies for the lambda layer, we need to bundle the modules as well as `package.json` and `package-lock` in a folder called nodejs and then compress it to a [zip file](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/aws_sdk-and-jszip-dependencies.zip).
 
 ![](./images/image36.png)![](./images/image16.png)![](./images/image13.png)      
 
-- Now we need to bundle the `test.js` file, which contains the array of movie items, with the `Movie_Videos` and `Poster_Images` folders to a compressed zip file. This lambda_test zip file is what will be uploaded to the source bucket. 
+- Now we need to bundle the `test.js` file, which contains the array of movie items, with the `Movie_Videos` and `Poster_Images` folders to a compressed zip file. This [lambda_test zip file](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/lambda_test.zip) is what will be uploaded to the source bucket. 
 
 ![](./images/image50.png)  
 
 In this next section, I'll be explaining how the function code works.
 
-- The dependencies for: aws-sdk, jszip and vm are imported. Jszip is used to unzip the lambda_test file that will be received in the source bucket. The vm (Virtual Machine) module in Node.js is used to run JavaScript code within a separate, sandboxed execution context. This will be used later on to get the contents of the `test.js` file after unzipping lambda_test.  
+- The dependencies for: aws-sdk, jszip and vm are imported. Jszip is used to unzip the [lambda_test file](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/lambda_test.zip) that will be received in the source bucket. The vm (Virtual Machine) module in Node.js is used to run JavaScript code within a separate, sandboxed execution context. This will be used later on to get the contents of the `test.js` file after unzipping [lambda_test](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/lambda_test.zip).  
 - The `const dynamodb = new AWS.DynamoDB.DocumentClient()` line initializes a DynamoDB Document Client, which is used to interact with AWS DynamoDB for reading and writing human-readable JSON objects in DynamoDB.  
 - The `const s3 = new AWS.S3` line creates an s3 client instance, this enables the Lambda function code to perform operations like uploading, downloading, deleting, and listing objects in S3.
 
@@ -90,7 +91,7 @@ In this next section, I'll be explaining how the function code works.
 Now let's head into the AWS console:
 
 - The source and destination s3 buckets.  
-- The lambda_test zip file will be uploaded to `lambda-dynamodb-source-bucket` and the resulting media files will be uploaded to directories created by the function in `lambda-dynamodb-destination-bucket`. 
+- The [lambda_test zip file] will be uploaded to `lambda-dynamodb-source-bucket` and the resulting media files will be uploaded to directories created by the function in `lambda-dynamodb-destination-bucket`. 
 
 ![](./images/image46.png)  
 
@@ -99,7 +100,7 @@ Now let's head into the AWS console:
 
 ![](./images/image42.png)![](./images/image32.png)  
 
-- Creating the lambda layer to be used by the lambda function.
+- Creating the lambda layer to be used by the lambda function by uploading the [dependecies zip file](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/aws_sdk-and-jszip-dependencies.zip).
 
 ![](./images/image6.png)    
 ![](./images/image37.png)  
@@ -122,11 +123,37 @@ Now let's head into the AWS console:
 
 ![](./images/image49.png)  
 
-- The first is a policy to perform `GetObject` actions in the source bucket.
+- The first is a policy to perform `GetObject` actions in the source bucket:
+```json
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::source-bucket-name/*"
+        }
+    ]
+}
+```
 
 ![](./images/image14.png)![](./images/image38.png)  
 
 - The second is a policy to perform `PutObject` actions in the destination bucket.
+```json
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::destination-bucket-name/*"
+        }
+    ]
+}
+```
 
 ![](./images/image18.png)![](./images/image19.png)  
 
@@ -138,12 +165,12 @@ Now let's head into the AWS console:
 
 ![](./images/image7.png)  
 
-- Pasting the code to the function. The code can also be uploaded as a zip file.  
+- Pasting the [code](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/s3-dynamodb.mjs) to the function. The [code](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/s3-dynamodb.mjs) can also be uploaded as a zip file.  
 - After the code is pasted you can deploy it.
 
 ![](./images/image26.png)  
 
-- Uploading the lambda_test zip file to the source bucket.
+- Uploading the [lambda_test zip file](https://github.com/KimAdrian1/AWS-Serverless-Media-ETL-Pipeline-with-Lambda-and-DynamoDB/blob/d6cecdb66cf38328846ef2f71757fc5ee00d4461/lambda_test.zip) to the source bucket.
 
 ![](./images/image5.png)  
 
