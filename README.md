@@ -10,7 +10,7 @@ The diagram above displays two S3 buckets to be created in the us-east-1 region;
 **What is Lambda?**  
 Lambda is an AWS compute service that allows you to run code in a number of runtime environments without provisioning servers. It is event driven; it executes code based on triggers from native AWS services and other select third party sources. You only define the memory and storage capacity needed by your code during its execution time(max of 15 minutes). Processing power is scaled and handled automatically based on your code.
 
-**What is DynamoDb?**  
+**What is DynamoDB?**  
 DynamoDB is a fully managed NoSQL database service native to AWS. It has very high availability, scalability and offers very low latency. Since it is fully managed, there is no need to provision servers to run the database.
 
 **Services Used**
